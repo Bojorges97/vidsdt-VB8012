@@ -1,0 +1,21 @@
+body, table, tr{
+    padding: 0px;
+    border: 0px;
+}
+td.header {
+    font-size: 20px;
+    text-align: center; 
+    background-color: #a6a6a6; 
+    height:20px; 
+    width:40px;
+}
+img.logo {
+    display:block;
+    height:20px; 
+    width:50px;
+}
+td{
+    width: 120px;
+    font-size: 20px;
+    text-align: center; 
+}
