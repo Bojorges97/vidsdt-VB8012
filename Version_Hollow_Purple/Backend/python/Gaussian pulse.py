@@ -2,20 +2,19 @@
 
 from pyvirtualbench import PyVirtualBench, PyVirtualBenchException, FGenWaveformMode
 from waveform import GaussianPulse
-from matplotlib import pyplot as plt
 from numpy import array, savetxt
+# from matplotlib import pyplot as plt # Debug
 
-def createPulseGaussian(amplitude, frecuency, NSamples, fs, HalfGuassianWidth):
+def createGaussianPulse(amplitude, frecuency, NSamples, fs, HalfGuassianWidth):
 
     pulse = GaussianPulse(amplitude, frecuency, NSamples, fs, HalfGuassianWidth)
     pulse.getFFT() 
 
-    frecFunction = pulse.y
     pulseArray = array(pulse.y)
-    # w = pulse.w
-    savetxt('test.txt', pulseArray)
-    # plt.plot(w, frecFunction, color="red")
-    # plt.show()
+    # w = pulse.w  # Debug
+    # savetxt('test.txt', pulseArray) # Debug
+    # plt.plot(w, frecFunction, color="red") # Debug
+    # plt.show() # Debug
 
     fgen = virtualbench.acquire_function_generator()
     
@@ -32,7 +31,7 @@ try:
     NSamples = 1000 
     fs = 2               #[S/s]
     HalfGuassianWidth = 3 
-    createPulseGaussian(amplitude, frecuency, NSamples, fs, HalfGuassianWidth)
+    createGaussianPulse(amplitude, frecuency, NSamples, fs, HalfGuassianWidth)
 except PyVirtualBenchException as e:
     print("Error/Warning %d occurred\n%s" % (e.status, e))
 finally:

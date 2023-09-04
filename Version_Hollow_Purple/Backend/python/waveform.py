@@ -1,5 +1,5 @@
 from math import pi, sqrt, log, exp, cos
-from numpy import arange, fft, array
+from numpy import arange, fft
 
 class GaussianPulse:
     def __init__(self, amplitude, frecuency, NSamples, fs, HalfGuassianWidth):
