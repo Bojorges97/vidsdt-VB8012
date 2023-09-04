@@ -1,16 +1,21 @@
 #! /usr/bin/env python3
 
+import asyncio
 from pyvirtualbench import PyVirtualBench, PyVirtualBenchException, FGenWaveformMode
 from waveform import GaussianPulse
+from websockets.server import serve
 from numpy import array, savetxt
+import json
 # from matplotlib import pyplot as plt # Debug
 
-def createGaussianPulse(amplitude, frecuency, NSamples, fs, HalfGuassianWidth):
-
-    pulse = GaussianPulse(amplitude, frecuency, NSamples, fs, HalfGuassianWidth)
+def createGaussianPulse(inputs):
+    print(inputs)
+    pulse = GaussianPulse(inputs['amplitude'], inputs['frecuency'], inputs['nSamples'], inputs['fs'], inputs['hgw'])
     pulse.getFFT() 
 
     pulseArray = array(pulse.y)
+    global sample_rate
+    sample_rate = 1/float(inputs['sampleRate'])
     # w = pulse.w  # Debug
     # savetxt('test.txt', pulseArray) # Debug
     # plt.plot(w, frecFunction, color="red") # Debug
@@ -18,21 +23,30 @@ def createGaussianPulse(amplitude, frecuency, NSamples, fs, HalfGuassianWidth):
 
     fgen = virtualbench.acquire_function_generator()
     
-    fgen.configure_arbitrary_waveform(pulseArray.tolist(), 0.00001)#Sample rate 100S/s=>0.01 100000=>0.00001
+    fgen.configure_arbitrary_waveform(pulseArray.tolist(), sample_rate)#Sample rate 100S/s=>0.01 100000=>0.00001
     fgen.run()
     fgen.release()
+
+async def echo(websocket):
+    async for message in websocket:
+        msg = json.loads(message)
+        print(msg)
+        try:
+          createGaussianPulse(msg)
+        except PyVirtualBenchException as e:
+            print("Error/Warning %d occurred\n%s" % (e.status, e))
+        finally:
+            virtualbench.release()
     
 
-try:
+if __name__ == '__main__':
     global virtualbench
     virtualbench = PyVirtualBench('VB8012-31C033D')
-    amplitude = 1      #[V]
-    frecuency = 10        #[Hz]
-    NSamples = 1000 
-    fs = 2               #[S/s]
-    HalfGuassianWidth = 3 
-    createGaussianPulse(amplitude, frecuency, NSamples, fs, HalfGuassianWidth)
-except PyVirtualBenchException as e:
-    print("Error/Warning %d occurred\n%s" % (e.status, e))
-finally:
-    virtualbench.release()
+    
+    async def main():
+        print("Service Up....")
+        async with serve(echo, "192.168.0.129", 80):
+            await asyncio.Future()  # run forever
+
+    asyncio.run(main())
+
