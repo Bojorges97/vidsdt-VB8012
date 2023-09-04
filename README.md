@@ -4,5 +4,6 @@ Virtual Instrument for the study of Dynamical Systems in the time domain. First 
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 * [pyvirtualbench](https://github.com/armstrap/armstrap-pyvirtualbench/tree/master)
+* [websockets](https://pypi.org/project/websockets/)
 * [numpy](https://numpy.org/install/)
 * [python-math](https://pypi.org/project/python-math/)
