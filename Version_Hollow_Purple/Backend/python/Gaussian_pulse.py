@@ -9,23 +9,19 @@ import json
 # from matplotlib import pyplot as plt # Debug
 
 def createGaussianPulse(inputs):
-    print(inputs)
     pulse = GaussianPulse(inputs['amplitude'], inputs['frecuency'], inputs['nSamples'], inputs['fs'], inputs['hgw'])
     pulse.getFFT() 
 
     pulseArray = array(pulse.y)
-    global sample_rate
-    sample_rate = 1/float(inputs['sampleRate'])
+    sample_rate = 1/float(inputs['sampleRate']  )
     # w = pulse.w  # Debug
     # savetxt('test.txt', pulseArray) # Debug
     # plt.plot(w, frecFunction, color="red") # Debug
     # plt.show() # Debug
-
-    fgen = virtualbench.acquire_function_generator()
-    
+    fgen.stop()
     fgen.configure_arbitrary_waveform(pulseArray.tolist(), sample_rate)#Sample rate 100S/s=>0.01 100000=>0.00001
     fgen.run()
-    fgen.release()
+    # fgen.release()
 
 async def echo(websocket):
     async for message in websocket:
@@ -40,12 +36,12 @@ async def echo(websocket):
     
 
 if __name__ == '__main__':
-    global virtualbench
+    global virtualbench, fgen
     virtualbench = PyVirtualBench('VB8012-31C033D')
-    
+    fgen = virtualbench.acquire_function_generator()
     async def main():
         print("Service Up....")
-        async with serve(echo, "192.168.0.129", 80):
+        async with serve(echo, "0.0.0.0", 80):
             await asyncio.Future()  # run forever
 
     asyncio.run(main())
