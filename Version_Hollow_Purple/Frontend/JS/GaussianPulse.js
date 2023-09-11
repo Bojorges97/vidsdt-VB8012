@@ -1,4 +1,4 @@
-var websocket = new WebSocket("ws://192.168.0.129:80/");
+var websocket = new WebSocket("ws://172.16.29.60:80/");
 
 let data = {};
 

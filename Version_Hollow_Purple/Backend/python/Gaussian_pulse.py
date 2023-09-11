@@ -28,7 +28,8 @@ async def echo(websocket):
         msg = json.loads(message)
         print(msg)
         try:
-          createGaussianPulse(msg)
+            print("Hi")
+        #   createGaussianPulse(msg)
         except PyVirtualBenchException as e:
             print("Error/Warning %d occurred\n%s" % (e.status, e))
         finally:
@@ -37,8 +38,8 @@ async def echo(websocket):
 
 if __name__ == '__main__':
     global virtualbench, fgen
-    virtualbench = PyVirtualBench('VB8012-31C033D')
-    fgen = virtualbench.acquire_function_generator()
+    # virtualbench = PyVirtualBench('VB8012-31C033D')
+    # fgen = virtualbench.acquire_function_generator()
     async def main():
         print("Service Up....")
         async with serve(echo, "0.0.0.0", 80):
