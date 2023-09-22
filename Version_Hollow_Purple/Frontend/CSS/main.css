@@ -38,3 +38,15 @@ button {
     /* top: 50%; */
     left: 25%;
 }
+table.osciloscope {
+    position: absolute;
+    top: 50%;
+    padding: 0px;
+    border: 0px;
+    width: 100%;
+}
+canvas#osciloscope {
+    background-color: black;
+    /* width: 700px;
+    height: 300px; */
+}

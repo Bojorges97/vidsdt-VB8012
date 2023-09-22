@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Bench Pulse Gaussian</title>
     <link rel="stylesheet" href="../CSS/main.css">
-    <script src="../JS/GaussianPulse.js"></script>
+
 </head>
 <body>
     <div class="main-div">
@@ -46,3 +46,33 @@
             <button type="submit">Send</button>
         </form>
     </div>
+   
+     <table class="osciloscope">
+        <tr>
+            <h1 id="id_status">Socket desconectado</h1>
+            <td>
+                <table>
+                    <tr><td><label style="font-size: 100%; padding-right: 20px;">Name</label></td>
+                    <td><input id="id_nameFile" style = "font-size: 100%; background-color: bisque;" type="text" value="demo"></td></tr>
+                    <tr><td colspan="2"><button id="id_saveFile"  style = "font-size: 100%;" onclick="saveFile()" >Save</button></td></tr>
+                </table>
+                <table>
+                    <div style="padding-top: 50px;">
+                        <tr><td><label style="font-size: 100%; padding-left:-100px;">file size (approx)</label></td>
+                        <td><label id="id_sizeFile" style="font-size: 100%; padding-left:20px; padding-right: 20px; border: 1px solid rgb(0, 0, 0);">0KB</label></td></tr>
+                        <tr><td colspan="2"><button id="id_clearFile"  style = "font-size: 100%" onclick="clearFile()" >clear</button></td></tr>
+                    </div>
+                </table>
+            </td>
+            <td>
+                <div style="width: 100%; height: 100%;">
+                      <canvas id="osciloscope" ></canvas>
+                </div>
+            </td>
+        </tr>
+     </table>
+
+</body>
+<script src="../JS/GaussianPulse.js"></script>
+   
+    
