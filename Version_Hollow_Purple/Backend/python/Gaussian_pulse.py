@@ -10,19 +10,27 @@ from matplotlib import pyplot as plt # Debug
 
 def triggerWaveform(inputs):
     pulse = GaussianPulse(inputs['amplitude'], inputs['frecuency'], inputs['nSamples'], inputs['fs'], inputs['hgw'])
-    pulse.getFFT() 
 
     pulseArray = array(pulse.y)
     sample_rate = 1/float(inputs['sampleRate']  )
-    # w = pulse.w  # Debug
-    # savetxt('test.txt', pulseArray) # Debug
-    # plt.plot(w, frecFunction, color="red") # Debug
-    # plt.show() # Debug
     fgen.stop()
     fgen.configure_arbitrary_waveform(pulseArray.tolist(), sample_rate)#Sample rate 100S/s=>0.01 100000=>0.00001
     fgen.run()
+    # t = pulse.t  # Debug
+    # w = pulse.w
+    # savetxt('test.txt', pulseArray) # Debug
+    # pulse.getFFT() 
+    # pulseFFT = pulse.y
+    # plt.figure(1)
+    # plt.subplot(211)
+    # plt.plot(t, pulseArray, color="red") # Debug
+    # plt.subplot(212)
+    # plt.plot(w, pulseFFT, color="blue") # Debug
+    # plt.show() # Debug
     
     # fgen.release()
+# def stopFunctionGenerator():
+#     fgen.stop()
 
 def msoData():
     mso = virtualbench.acquire_mixed_signal_oscilloscope()
@@ -37,19 +45,18 @@ def msoData():
 
     # Read the data by first querying how big the data needs to be, allocating the memory, and finally performing the read.
     analog_data = mso.read_analog_digital_u64()[0]
-    # testArray = array(analog_data)# Debug
-    # w = arange(0, testArray.size, 1, dtype=float)# Debug
-    # # # print(testArray)# Debug
-    # # # savetxt('test.txt', testArray) # Debug
-    # plt.plot(w, testArray, color="red") # Debug
-    # plt.show() # Debug
+    print(analog_data)
     return analog_data
+
 async def echo(websocket):
     async for message in websocket:
         msg = json.loads(message)
         print(msg)
         try:
-           triggerWaveform(msg)
+        #    triggerWaveform(msg)
+           fgen.stop()
+           if msg['stop']:
+               fgen.stop()
            await websocket.send(json.dumps({'data' : msoData()}))
         except PyVirtualBenchException as e:
             print("Error/Warning %d occurred\n%s" % (e.status, e))
@@ -59,7 +66,7 @@ async def echo(websocket):
 
 if __name__ == '__main__':
     global virtualbench, fgen
-    virtualbench = PyVirtualBench('VB8012-31C033D')
+    virtualbench = PyVirtualBench('VB8012-3178C78')
     # msoData() # debug
     fgen = virtualbench.acquire_function_generator()
     async def main():
