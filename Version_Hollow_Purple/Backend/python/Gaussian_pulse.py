@@ -18,7 +18,6 @@ def triggerWaveform(inputs):
     fgen.run()
     # t = pulse.t  # Debug
     # w = pulse.w
-    # savetxt('test.txt', pulseArray) # Debug
     # pulse.getFFT() 
     # pulseFFT = pulse.y
     # plt.figure(1)
@@ -28,9 +27,6 @@ def triggerWaveform(inputs):
     # plt.plot(w, pulseFFT, color="blue") # Debug
     # plt.show() # Debug
     
-    # fgen.release()
-# def stopFunctionGenerator():
-#     fgen.stop()
 
 def msoData(sampleRate):
     channel_1 = mso.query_analog_channel(model+'/mso/1')
@@ -65,7 +61,7 @@ async def echo(websocket):
             if msg['button'] != 'stop':
                triggerWaveform(msg)
                virtualbench.get_calibration_information()
-               await websocket.send(json.dumps({'data' : msoData(msg['sampleRate'])}))
+            #    await websocket.send(json.dumps({'data' : msoData(msg['sampleRate'])}))
             #    while True:
             #       await websocket.send(json.dumps({'data' : msoData(msg['sampleRate'])}))
             #       await asyncio.sleep(1)
