@@ -10,65 +10,69 @@
 </head>
 <body>
     <div class="generator-div">
-        <div>
-            <h1 id="id_status">Socket disconected</h1>
+        <div class="status">
+            <h1 id="id_status">Socket desconectado</h1>
         </div>
         <form action="" onsubmit="event.preventDefault(); sendmsg(this.querySelectorAll('input'), event.submitter);">
+            <table class="header-main">
+                <tr>
+                    <th class = "header-text">Virtual Bench Generador de Pulsos</th>
+                </tr>
+            </table>
             <table class="configurations">
                 <tr>
-                    <td class = "header-text"colspan = "4">Virtual Bench Pulse Generator</td>
-                    <td class = "header-img" >
-                    <img class = "logo" src="../Images/UAM_AZC_logo.png" class="icon">
-                    </td>
+                    <th class = "header-text" colspan="5">Configuraciones</th>
                 </tr>
                 <tr>
-                    <td colspan="2"><label for="amplitude">Amplitude [V]</label></td>
-                    <td colspan="3"><input type="number" name="amplitude" value="3" required></td>
+                    <td colspan="2"><label for="amplitude">Amplitud [V]</label></td>
+                    <td colspan="3"><input type="number" name="amplitude" min="0" value="3" required></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><label for="frecuency">Frecuency [Hz]</label></td>
-                    <td colspan="3"><input type="number" name="frecuency" min="0" max="10000000" value="2500" required></td>
+                    <td colspan="2"><label for="frecuency">Frecuencia [Hz]</label></td>
+                    <td colspan="3"><input type="number" name="frecuency" min="0" value="2500" required></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><label for="nSamples">Number of samples</label></td>
-                    <td colspan="3"><input type="number" name="nSamples" value="5000" required></td>
+                    <td colspan="2"><label for="nSamples">Numero de muestras</label></td>
+                    <td colspan="3"><input type="number" name="nSamples" min="10" value="5000" required></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><label for="fs">Sample rate (Gaussian Pulse Array) [S/s]</label></td>
-                    <td colspan="3"><input type="number" name="fs" min="2" max="250000" value="250000" required></td>
+                    <td colspan="2"><label for="fs">Frecuencia de muestreo [muestra/s]</label></td>
+                    <td colspan="3"><input type="number" name="fs" min="100" value="250000" required></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><label for="hgw">Half Gaussian Width</label></td>
+                    <td colspan="2"><label for="hgw">Ancho de banda promedio</label></td>
                     <td colspan="3"><input type="number" name="hgw" value="0.001"></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><label for="sampleRate">Sample rate (Gaussian Pulse Output)[S/s]</label></td>
-                    <td colspan="3"><input type="number" name="sampleRate" min="100" max="10000000" value="250000" required></td>
-                </tr>
-            </table>
-            <table class="buttons">
-                <tr>
-                    <td>
-                        <button type="submit" class="send" >Send</button>
+                    <td colspan="3">
+                        <button type="submit" class="send" cols>Send</button>
                     </td>
-                    <td>
+                    <td colspan="2">
                         <button type="submit" class="stop" >Stop</button>
                     </td>
                 <tr>
             </table>
             <table class="plots">
                 <tr>
+                    <th class = "header-text" colspan="5">Señal de entrada</th>
+                </tr>
+                <tr>
                    <td>
-                     <div id="timePlot" style="width:600px;height:250px;"></div>
+                     <div id="timePlot"></div>
                    </td>
                 </tr>
                 <tr>
                     <td>
-                      <div id="frecuencyPlot" style="width:600px;height:250px;"></div>
+                      <div id="frecuencyPlot"></div>
                     </td>
                 </tr>
             </table>
         </form>
+        <table class="header-main">
+            <tr>
+                <th class = "header-text">Adquisición de datos</th>
+            </tr>
+        </table>
     </div>
 </body>
 

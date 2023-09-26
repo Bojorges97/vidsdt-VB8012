@@ -4,15 +4,14 @@ import asyncio
 from pyvirtualbench import PyVirtualBench, PyVirtualBenchException, FGenWaveformMode
 from waveform import GaussianPulse
 from websockets.server import serve
-from numpy import array, savetxt, arange
+from numpy import array
 import json
-from matplotlib import pyplot as plt # Debug
 
 def triggerWaveform(inputs):
     pulse = GaussianPulse(inputs['amplitude'], inputs['frecuency'], inputs['nSamples'], inputs['fs'], inputs['hgw'])
 
     pulseArrayTime = array(pulse.y)
-    sample_rate = 1/float(inputs['sampleRate'] )
+    sample_rate = 1/float(inputs['fs'] )
     fgen.stop()
     fgen.configure_arbitrary_waveform(pulseArrayTime.tolist(), sample_rate)#Sample rate 100S/s=>0.01 100000=>0.00001
     fgen.run()
@@ -20,13 +19,6 @@ def triggerWaveform(inputs):
     w = array(pulse.w)
     pulseArrayFrec = array(pulse.getFFT())
     data ["fGen"] = { "t" : t.tolist(), "w" : w.tolist(), "timeY" : pulseArrayTime.tolist(), "frecY" : pulseArrayFrec.tolist()}
-    # pulseFFT = pulse.y
-    # plt.figure(1)
-    # plt.subplot(211)
-    # plt.plot(t, pulseArray, color="red") # Debug
-    # plt.subplot(212)
-    # plt.plot(w, pulseFFT, color="blue") # Debug
-    # plt.show() # Debug
     
 
 def msoData(sampleRate):

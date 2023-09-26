@@ -12,11 +12,11 @@ const Status = document.getElementById('id_status'),
 
 
 webSocket.onopen = function(frame) {
-    Status.innerText = "Connected to " + ip_address + ":8080";
+    Status.innerText = "Conectado a " + ip_address + ":5500";
 };
 
 webSocket.onclose = function(frame) {
-    Status.innerText = "Socket disconnected";
+    Status.innerText = "Socket desconectado";
 };
 
 webSocket.onmessage = function(info) {
@@ -27,12 +27,81 @@ webSocket.onmessage = function(info) {
         Plotly.newPlot( TimePlot, [{
         x: data["fGen"]["t"],
         y: data["fGen"]["timeY"]}], {
-        margin: { t: 0 } } );
+            margin: { t: 0 },
+            title:{
+                text:'Señal en el tiempo',
+                x: 0.5,
+                automargin: true,
+                font: {
+                  family: "Arial",
+                  size: 15,
+                  color: 'black'
+                }
+              },  
+            width: 800,
+            height: 250,
+            xaxis: { 
+                title: {
+                  text: 't [s]',
+                  font: {
+                    family: "Arial",
+                    size: 15,
+                    color: 'black'
+                  },
+                },
+                position: 0.3
+                
+              },
+              yaxis: {
+                title: {
+                    family: "Arial",
+                    text: 'f(t) [V]',
+                    font: {
+                      size: 15,
+                      color: 'black'
+                    }
+                  }
+              }} );
 
         Plotly.newPlot( FrecPlot, [{
             x: data["fGen"]["w"],
-            y: data["fGen"]["frecY"]}], {
-            margin: { w: 0 } } );
+            y: data["fGen"]["frecY"]}
+            ], {
+            margin: { t: 0 },
+            title:{
+                text:'Señal en la frecuencia',
+                x: 0.5,
+                automargin: true,
+                font: {
+                  family: "Arial",
+                  size: 15,
+                  color: 'black'
+                }    
+            },  
+            width: 800,
+            height: 250,
+            xaxis: { 
+                title: {
+                  text: 'w [Hz]',
+                  font: {
+                    family: "Arial",
+                    size: 15,
+                    color: 'black'
+                  }
+                },
+                position: 0.3
+              },
+              yaxis: {
+                title: {
+                    text: 'f(w) [V]',
+                    font: {
+                      family: "Arial",
+                      size: 15,
+                      color: 'black'
+                    }
+                  },
+              }
+            } );
     }
 
 }
