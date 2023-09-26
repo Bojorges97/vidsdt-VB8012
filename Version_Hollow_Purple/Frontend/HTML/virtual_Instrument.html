@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Bench Pulse Gaussian</title>
     <link rel="stylesheet" href="../CSS/main.css">
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js" charset="utf-8"></script>
 
 </head>
 <body>
     <div class="main-div">
-        <form action="" onsubmit="event.preventDefault(); sendmsg(this.querySelectorAll('input'));">
+        <form action="" onsubmit="event.preventDefault(); sendmsg(this.querySelectorAll('input'), event.submitter);">
             <table>
                 <tr>
                     <td class = "header-text"colspan = "4">Virtual Bench-Gaussian Pulse</td>
@@ -43,7 +44,8 @@
                     <td colspan="3"><input type="number" name="sampleRate" min="100" max="10000000" value="250000" required></td>
                 </tr>
             </table>
-            <button type="submit">Send</button>
+            <button type="submit" class="send">Send</button>
+            <button type="submit" class="stop">Stop</button>
         </form>
     </div>
    
@@ -71,7 +73,7 @@
             </td> -->
         </tr>
      </table>
-
+     <div id="tester" style="width:600px;height:250px;"></div>
 </body>
 <script src="../JS/GaussianPulse.js"></script>
    

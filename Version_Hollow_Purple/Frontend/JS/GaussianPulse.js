@@ -13,14 +13,21 @@ webSocket.onmessage = function(info) {
     let data = JSON.parse(info.data);
     console.log(data)
     if (data["data"]){
-        // console.log(JSON.parse(data["data"]))
-        plotData(data["data"]);
-        return false
+        
+        x = Array.from({length: data["data"].length}, (_, i) => i + 1)
+        TESTER = document.getElementById('tester');
+        window.plot = Plotly.newPlot( TESTER, [{
+        x: x,
+        y:  data["data"]}], {
+        margin: { t: 0 } } );
+        // return false
+
     }
 }
 
-function sendmsg(steps){
-    steps.forEach(element =>data[element.name]=element.valueAsNumber);
+function sendmsg(inputs, button){
+    inputs.forEach(element =>data[element.name]=element.valueAsNumber);
+    data['button'] = button.className
     console.log(data);
     webSocket.send(JSON.stringify(data));
 }
@@ -48,14 +55,14 @@ function sendmsg(steps){
 // // });
 
 webSocket.onopen = function(frame) {
-    Status.innerText = "Conectado " + ip_address + ":8080";
+    Status.innerText = "Connected to " + ip_address + ":8080";
     console.log("Connected to: " + ip_address + ":8080")
 };
 
-// webSocket.onclose = function(frame) {
-//     Status.innerText = "Socket desconectado";
-//     console.log("Socket disconnected ")
-// };
+webSocket.onclose = function(frame) {
+    Status.innerText = "Socket disconnected";
+    console.log("Socket disconnected ")
+};
 
 // function plotData(data) {
 //     let ctx = canvas.getContext("2d");

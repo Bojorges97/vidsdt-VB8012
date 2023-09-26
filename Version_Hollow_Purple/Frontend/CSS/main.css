@@ -30,7 +30,7 @@ input {
     width: 80%;
     text-align: center;
 }
-button {
+button.send {
     display:block;
     width: 100px;
     font-size: 20px;
@@ -38,9 +38,17 @@ button {
     /* top: 50%; */
     left: 25%;
 }
+button.stop {
+    display:block;
+    width: 100px;
+    font-size: 20px;
+    position: absolute;
+    /* top: 50%; */
+    left: 40%;
+}
 table.osciloscope {
     position: absolute;
-    top: 50%;
+    top: 100%;
     padding: 0px;
     border: 0px;
     width: 100%;
