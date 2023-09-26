@@ -1,6 +1,11 @@
 body, table, tr{
     padding: 0px;
     border: 0px;
+    text-align: center;
+}
+
+table.configurations, table.buttons, table.plots {
+   width: 50%;
 }
 td.header-text {
     font-size: 30px;
@@ -34,17 +39,11 @@ button.send {
     display:block;
     width: 100px;
     font-size: 20px;
-    position: absolute;
-    /* top: 50%; */
-    left: 25%;
 }
 button.stop {
     display:block;
     width: 100px;
     font-size: 20px;
-    position: absolute;
-    /* top: 50%; */
-    left: 40%;
 }
 table.osciloscope {
     position: absolute;
@@ -57,4 +56,9 @@ canvas#osciloscope {
     background-color: black;
     /* width: 700px;
     height: 300px; */
+} 
+
+div.timePlot, div.frecuencyPlot {   
+    width:600px;
+    height:250px;
 }

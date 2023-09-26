@@ -11,14 +11,15 @@ from matplotlib import pyplot as plt # Debug
 def triggerWaveform(inputs):
     pulse = GaussianPulse(inputs['amplitude'], inputs['frecuency'], inputs['nSamples'], inputs['fs'], inputs['hgw'])
 
-    pulseArray = array(pulse.y)
+    pulseArrayTime = array(pulse.y)
     sample_rate = 1/float(inputs['sampleRate'] )
     fgen.stop()
-    fgen.configure_arbitrary_waveform(pulseArray.tolist(), sample_rate)#Sample rate 100S/s=>0.01 100000=>0.00001
+    fgen.configure_arbitrary_waveform(pulseArrayTime.tolist(), sample_rate)#Sample rate 100S/s=>0.01 100000=>0.00001
     fgen.run()
-    # t = pulse.t  # Debug
-    # w = pulse.w
-    # pulse.getFFT() 
+    t = array(pulse.t)
+    w = array(pulse.w)
+    pulseArrayFrec = array(pulse.getFFT())
+    data ["fGen"] = { "t" : t.tolist(), "w" : w.tolist(), "timeY" : pulseArrayTime.tolist(), "frecY" : pulseArrayFrec.tolist()}
     # pulseFFT = pulse.y
     # plt.figure(1)
     # plt.subplot(211)
@@ -60,7 +61,7 @@ async def echo(websocket):
         try:
             if msg['button'] != 'stop':
                triggerWaveform(msg)
-               virtualbench.get_calibration_information()
+               await websocket.send(json.dumps(data))
             #    await websocket.send(json.dumps({'data' : msoData(msg['sampleRate'])}))
             #    while True:
             #       await websocket.send(json.dumps({'data' : msoData(msg['sampleRate'])}))
@@ -76,11 +77,12 @@ async def echo(websocket):
     
 
 if __name__ == '__main__':
-    global model, virtualbench, fgen, mso
+    global model, virtualbench, fgen, mso, data
     model = 'VB8012-3178C78'
     virtualbench = PyVirtualBench(model)
     mso = virtualbench.acquire_mixed_signal_oscilloscope()
     fgen = virtualbench.acquire_function_generator()
+    data = {}
     async def main():
         print("Service Up....")
         async with serve(echo, "0.0.0.0", 1025):

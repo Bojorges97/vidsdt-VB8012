@@ -13,7 +13,7 @@ class GaussianPulse:
         (self.t, self.y, self.w) = self.GaussianFunction(samples)
         
     def getFFT(self):
-        self.y = abs(fft.fft(self.y))
+        return abs(fft.fft(self.y))
        
     def getSamples(self, n):
         return arange(0, n, 1, dtype=float)
