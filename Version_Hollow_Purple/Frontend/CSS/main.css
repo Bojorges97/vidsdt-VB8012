@@ -16,7 +16,7 @@ table.configurations{
     width: 50%;
     height: 500px;
 }
-table.plots{
+table.plots-inputs{
     float: right;
     width: 50%;
     height: 500px;
@@ -30,7 +30,7 @@ th.header-text {
     text-align: center; 
     background-color: #a6a6a6; 
     height:20px; 
-    width:200px;
+    width:50%;
 }
 th.header-img {
     font-size: 50px;
@@ -77,4 +77,18 @@ div#timePlot, div#frecuencyPlot {
 div.status {
     width: 100%;
     font-size: 10px;
+}
+
+#id_labelFile{
+    font-size: 50%; 
+    padding-right: 20px;
+}
+
+#id_nameFile{
+    font-size: 50%; 
+    background-color: bisque;
+}
+
+#id_saveFile{
+    font-size: 50%;
 }

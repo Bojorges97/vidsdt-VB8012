@@ -16,7 +16,7 @@
         <form action="" onsubmit="event.preventDefault(); sendmsg(this.querySelectorAll('input'), event.submitter);">
             <table class="header-main">
                 <tr>
-                    <th class = "header-text">Virtual Bench Generador de Pulsos</th>
+                    <th class = "header-text">Generador de pulsos</th>
                 </tr>
             </table>
             <table class="configurations">
@@ -52,18 +52,18 @@
                     </td>
                 <tr>
             </table>
-            <table class="plots">
+            <table class="plots-inputs">
                 <tr>
                     <th class = "header-text" colspan="5">Señal de entrada</th>
                 </tr>
                 <tr>
                    <td>
-                     <div id="timePlot"></div>
+                     <div id="timePlotIn"></div>
                    </td>
                 </tr>
                 <tr>
                     <td>
-                      <div id="frecuencyPlot"></div>
+                      <div id="frecuencyPlotIn"></div>
                     </td>
                 </tr>
             </table>
@@ -71,6 +71,56 @@
         <table class="header-main">
             <tr>
                 <th class = "header-text">Adquisición de datos</th>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th class = "header-text">Señal de salida</th>
+                <th class = "header-text">Promedio</th>
+                <th class = "header-text">Descargar datos</th>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                              <div id="timePlotOut"></div>
+                            </td>
+                         </tr>
+                         <tr>
+                             <td>
+                               <div id="frecuencyPlotOut"></div>
+                             </td>
+                         </tr>
+                    </table> 
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                              <div id="timePlotAverage"></div>
+                            </td>
+                         </tr>
+                         <tr>
+                             <td>
+                               <div id="frecuencyPlotAverage"></div>
+                             </td>
+                         </tr>
+                    </table> 
+                </td>
+                <td style="padding-top: 30px;">
+                    <form action="" onsubmit="event.preventDefault(); saveFile(this.querySelector('input'), this.querySelector('select').value);">
+                        <label id="id_labelFile" >Tipo</label>
+                        <select>
+                            <option value="time">Datos en el tiempo</option>
+                            <option value="timeAverage">Datos promediados en el tiempo</option>
+                            <option value="time">Datos en la frecuencia</option>
+                            <option value="timeAverage">Datos promediados en la frecuencia</option>
+                        </select>
+                        <label id="id_labelFile" >Nombre del archivo</label>
+                        <input id="id_nameFile" type="text" value="demo">
+                        <button id="id_saveFile"  type="submit">Guardar</button>
+                    </form>
+                </td>
             </tr>
         </table>
     </div>

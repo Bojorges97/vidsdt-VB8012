@@ -6,8 +6,8 @@ let webSocket = new WebSocket("ws://" + ip_address + ":1025/");
 let data = {};
 
 const Status = document.getElementById('id_status'),
-      TimePlot = document.querySelector("#timePlot"),
-      FrecPlot = document.querySelector("#frecuencyPlot");
+      TimePlotInput = document.querySelector("#timePlotIn"),
+      FrecPlotInput = document.querySelector("#frecuencyPlotIn");
 
 
 
@@ -24,7 +24,7 @@ webSocket.onmessage = function(info) {
     console.log(data)
     if (data["fGen"]){
         
-        Plotly.newPlot( TimePlot, [{
+        Plotly.newPlot( TimePlotInput, [{
         x: data["fGen"]["t"],
         y: data["fGen"]["timeY"]}], {
             margin: { t: 0 },
@@ -63,7 +63,7 @@ webSocket.onmessage = function(info) {
                   }
               }} );
 
-        Plotly.newPlot( FrecPlot, [{
+        Plotly.newPlot( FrecPlotInput, [{
             x: data["fGen"]["w"],
             y: data["fGen"]["frecY"]}
             ], {
@@ -102,9 +102,171 @@ webSocket.onmessage = function(info) {
                   },
               }
             } );
+            Plotly.newPlot( 'timePlotOut', [{
+                x: data["fGen"]["t"],
+                y: data["fGen"]["timeY"]}], {
+                    margin: { t: 0 },
+                    title:{
+                        text:'Señal en el tiempo',
+                        x: 0.5,
+                        automargin: true,
+                        font: {
+                          family: "Arial",
+                          size: 15,
+                          color: 'black'
+                        }
+                      },  
+                    width: 800,
+                    height: 250,
+                    xaxis: { 
+                        title: {
+                          text: 't [s]',
+                          font: {
+                            family: "Arial",
+                            size: 15,
+                            color: 'black'
+                          },
+                        },
+                        position: 0.3
+                        
+                      },
+                      yaxis: {
+                        title: {
+                            family: "Arial",
+                            text: 'f(t) [V]',
+                            font: {
+                              size: 15,
+                              color: 'black'
+                            }
+                          }
+                      }} );
+        
+                Plotly.newPlot( 'frecuencyPlotOut', [{
+                    x: data["fGen"]["w"],
+                    y: data["fGen"]["frecY"]}
+                    ], {
+                    margin: { t: 0 },
+                    title:{
+                        text:'Señal en la frecuencia',
+                        x: 0.5,
+                        automargin: true,
+                        font: {
+                          family: "Arial",
+                          size: 15,
+                          color: 'black'
+                        }    
+                    },  
+                    width: 800,
+                    height: 250,
+                    xaxis: { 
+                        title: {
+                          text: 'w [Hz]',
+                          font: {
+                            family: "Arial",
+                            size: 15,
+                            color: 'black'
+                          }
+                        },
+                        position: 0.3
+                      },
+                      yaxis: {
+                        title: {
+                            text: 'f(w) [V]',
+                            font: {
+                              family: "Arial",
+                              size: 15,
+                              color: 'black'
+                            }
+                          },
+                      }
+                    } );
+                    Plotly.newPlot( 'timePlotAverage', [{
+                        x: data["fGen"]["t"],
+                        y: data["fGen"]["timeY"]}], {
+                            margin: { t: 0 },
+                            title:{
+                                text:'Señal en el tiempo',
+                                x: 0.5,
+                                automargin: true,
+                                font: {
+                                  family: "Arial",
+                                  size: 15,
+                                  color: 'black'
+                                }
+                              },  
+                            width: 800,
+                            height: 250,
+                            xaxis: { 
+                                title: {
+                                  text: 't [s]',
+                                  font: {
+                                    family: "Arial",
+                                    size: 15,
+                                    color: 'black'
+                                  },
+                                },
+                                position: 0.3
+                                
+                              },
+                              yaxis: {
+                                title: {
+                                    family: "Arial",
+                                    text: 'f(t) [V]',
+                                    font: {
+                                      size: 15,
+                                      color: 'black'
+                                    }
+                                  }
+                              }} );
+                
+                        Plotly.newPlot( 'frecuencyPlotAverage', [{
+                            x: data["fGen"]["w"],
+                            y: data["fGen"]["frecY"]}
+                            ], {
+                            margin: { t: 0 },
+                            title:{
+                                text:'Señal en la frecuencia',
+                                x: 0.5,
+                                automargin: true,
+                                font: {
+                                  family: "Arial",
+                                  size: 15,
+                                  color: 'black'
+                                }    
+                            },  
+                            width: 800,
+                            height: 250,
+                            xaxis: { 
+                                title: {
+                                  text: 'w [Hz]',
+                                  font: {
+                                    family: "Arial",
+                                    size: 15,
+                                    color: 'black'
+                                  }
+                                },
+                                position: 0.3
+                              },
+                              yaxis: {
+                                title: {
+                                    text: 'f(w) [V]',
+                                    font: {
+                                      family: "Arial",
+                                      size: 15,
+                                      color: 'black'
+                                    }
+                                  },
+                              }
+                            } );
     }
 
 }
+
+function saveFile(input, event){
+    window.some = event
+    alert("Aún no lo codeo XD "+input.value)
+}
+
 
 function sendmsg(inputs, button){
     inputs.forEach(element =>data[element.name]=element.valueAsNumber);
