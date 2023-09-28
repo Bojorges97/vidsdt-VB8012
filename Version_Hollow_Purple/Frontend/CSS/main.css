@@ -56,12 +56,20 @@ input {
 }
 button.send {
     display:block;
-    width: 100px;
+    width: 110px;
     font-size: 20px;
     display: block;
     margin: auto;
 }
 button.stop {
+    display:block;
+    width: 100px;
+    font-size: 20px;
+    display: block;
+    margin: auto;
+}
+
+button.connect {
     display:block;
     width: 100px;
     font-size: 20px;

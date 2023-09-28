@@ -35,4 +35,3 @@ class GaussianPulse:
             y.append(self.amp*exponentialPart*cosinePart)
             w.append(f)
         return (x, y, w)
-        

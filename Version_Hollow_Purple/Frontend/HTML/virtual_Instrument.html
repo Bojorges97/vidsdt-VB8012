@@ -13,7 +13,7 @@
         <div class="status">
             <h1 id="id_status">Socket desconectado</h1>
         </div>
-        <form action="" onsubmit="event.preventDefault(); sendmsg(this.querySelectorAll('input'), event.submitter);">
+        <form action="" onsubmit="event.preventDefault(); sendmsg(this.querySelectorAll('input'), event.submitter.className);">
             <table class="header-main">
                 <tr>
                     <th class = "header-text">Generador de pulsos</th>
@@ -24,31 +24,36 @@
                     <th class = "header-text" colspan="5">Configuraciones</th>
                 </tr>
                 <tr>
+                    <td colspan="2"><label for="model">Modelo</label></td>
+                    <td colspan="2"><input type="text" name="model" value="VB8012-3178C78" required></td>
+                    <td> <button type="submit" class="connect">conectar</button></td>
+                </tr>
+                <tr>
                     <td colspan="2"><label for="amplitude">Amplitud [V]</label></td>
-                    <td colspan="3"><input type="number" name="amplitude" min="0" value="3" required></td>
+                    <td colspan="3"><input type="number" name="amplitude" id="amplitude" min="0" value="3" required></td>
                 </tr>
                 <tr>
                     <td colspan="2"><label for="frecuency">Frecuencia [Hz]</label></td>
-                    <td colspan="3"><input type="number" name="frecuency" min="0" value="2500" required></td>
+                    <td colspan="3"><input type="number" name="frecuency" id="frecuency" min="0" value="2500" required></td>
                 </tr>
                 <tr>
                     <td colspan="2"><label for="nSamples">Numero de muestras</label></td>
-                    <td colspan="3"><input type="number" name="nSamples" min="10" value="5000" required></td>
+                    <td colspan="3"><input type="number" name="nSamples" id="nSamples" min="10" value="5000" required></td>
                 </tr>
                 <tr>
                     <td colspan="2"><label for="fs">Frecuencia de muestreo [muestra/s]</label></td>
-                    <td colspan="3"><input type="number" name="fs" min="100" value="250000" required></td>
+                    <td colspan="3"><input type="number" name="fs" id="fs" min="100" value="250000" required></td>
                 </tr>
                 <tr>
                     <td colspan="2"><label for="hgw">Ancho de banda promedio</label></td>
-                    <td colspan="3"><input type="number" name="hgw" value="0.001"></td>
+                    <td colspan="3"><input type="number" name="hgw" id="hgw" value="0.001" step="0.001"></td>
                 </tr>
-                <tr>
+                <tr class="gen-buttons" style="display: none;">
                     <td colspan="3">
-                        <button type="submit" class="send" cols>Send</button>
+                        <button type="submit" class="send" cols>Establecer</button>
                     </td>
                     <td colspan="2">
-                        <button type="submit" class="stop" >Stop</button>
+                        <button type="submit" class="stop" >Detener</button>
                     </td>
                 <tr>
             </table>
