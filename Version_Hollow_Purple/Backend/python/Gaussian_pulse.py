@@ -127,8 +127,8 @@ async def echo(websocket):
                 try:
                     fgen.stop()
                     fgen.release()
-                    # mso.stop()
-                    # mso.release()
+                    mso.stop()
+                    mso.release()
                 except:
                     print('No esta ejecutandose')
 
