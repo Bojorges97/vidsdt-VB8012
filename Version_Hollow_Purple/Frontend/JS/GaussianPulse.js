@@ -2,8 +2,7 @@ console.log("David was Here");
 console.log("Version Hollow_purple");
 
 let ip_address = window.location.hostname;
-let webSocket = new WebSocket("ws://" + ip_address + ":1025/");
-let data = {};
+let data = {}, webSocket = new WebSocket("ws://" + ip_address + ":1025/");;
 
 let today = new Date();
 let expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000); // plus 30 days
@@ -16,16 +15,19 @@ const Status = document.getElementById('id_status'),
       FrecPlotInput = document.querySelector("#frecuencyPlotIn");
 
 
-
 webSocket.onopen = function(frame) {
     Status.innerText = "Conectado a " + ip_address + ":5500";
 };
 
 webSocket.onclose = function(frame) {
     Status.innerText = "Socket desconectado";
+    setTimeout(function() {
+      connect();
+    }, 2000);
 };
 
-webSocket.onmessage = function(info) {
+
+webSocket.onmessage = function (info) {
     let backData = JSON.parse(info.data);
     console.log(backData)
     if(backData['connectDev']){
@@ -36,7 +38,7 @@ webSocket.onmessage = function(info) {
       document.querySelector('#frecuencyPlotIn').innerHTML = ''; 
     }
     if (backData["fGen"]){
-        
+        document.querySelector('#reloadButton').style.display = ''; 
         Plotly.newPlot( TimePlotInput, [{
         x: backData["fGen"]["t"],
         y: backData["fGen"]["timeY"]}], {
@@ -239,7 +241,7 @@ webSocket.onmessage = function(info) {
               }} );
     }
 
-}
+};
 
 function saveFile(input, event){
     window.some = event
@@ -274,3 +276,12 @@ function getCookie(cname)
   return "";
 }
 
+// function connect(){
+//   webSocket = new WebSocket("ws://" + ip_address + ":1025/");
+// }
+
+// // var intervalWs = setInterval(function (){
+// //                     connect();
+// //                   }, 1000)
+
+// connect();

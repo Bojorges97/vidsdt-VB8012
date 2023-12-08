@@ -13,7 +13,7 @@
         <div class="status">
             <h1 id="id_status">Socket desconectado</h1>
         </div>
-        <form action="" onsubmit="event.preventDefault(); sendmsg(this.querySelectorAll('input'), event.submitter.className);">
+        <form action="" onsubmit="event.preventDefault(); sendmsg(this.querySelectorAll('input'), event.submitter.className);" id="main-form">
             <table class="header-main">
                 <tr>
                     <th class = "header-text">Generador de pulsos</th>
@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td colspan="2"><label for="model">Modelo</label></td>
-                    <td colspan="2"><input type="text" name="model" value="VB8012-3178C78" required></td>
+                    <td colspan="2"><input type="text" name="model" value="VB8012-31C033D" required></td>
                     <td> <button type="submit" class="connect">conectar</button></td>
                 </tr>
                 <tr>
@@ -89,6 +89,9 @@
                         <tr>
                             <td>
                               <div id="timePlotOut"></div>
+                            </td>
+                            <td>
+                                <button onclick="sendmsg(document.querySelector('#main-form').querySelectorAll('input'), 'reload')" id="reloadButton" style="display: none;">Recargar</button>
                             </td>
                          </tr>
                          <tr>

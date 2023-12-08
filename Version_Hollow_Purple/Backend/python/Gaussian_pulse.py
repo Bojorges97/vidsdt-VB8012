@@ -10,6 +10,9 @@ import json
 
 model = ''
 
+global test
+test = {}
+
 def triggerWaveform(inputs):
     pulse = GaussianPulse(inputs['amplitude'], inputs['frecuency'], inputs['nSamples'], inputs['fs'], inputs['hgw'])
     data ['connectDev'] = True
@@ -116,6 +119,7 @@ async def echo(websocket):
                triggerWaveform(msg)
                msoData(msg ['fs'])
                getAverage()
+               test = data ["fGen"]
                await websocket.send(json.dumps(data))
             #    await websocket.send(json.dumps({'data' : msoData(msg['sampleRate'])}))
             #    while True:
@@ -131,7 +135,15 @@ async def echo(websocket):
                     # mso.release()
                 except:
                     print('No esta ejecutandose')
+            elif msg['button'] == 'reload':
+                virtualbench = PyVirtualBench(model)
+                mso = virtualbench.acquire_mixed_signal_oscilloscope()
+                data['fGen'] = test
+                msoData(msg ['fs'])
+                getAverage()
+                await websocket.send(json.dumps(data))
 
+                
         except PyVirtualBenchException as e:
             await websocket.send(json.dumps({'connectDev' : False}))
             print("Error/Warning %d occurred\n%s" % (e.status, e))
