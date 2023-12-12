@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Bench Pulse Generator</title>
+    <link rel="stylesheet" href="../CSS/main.css">
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <div class="generator-div">
+        <div class="status">
+            <h1 id="id_status">Socket desconectado</h1>
+        </div>
+        <form action="" onsubmit="event.preventDefault(); sendmsg( event.submitter.className, this.querySelectorAll('input'));" id="main-form">
+            <table class="header-main">
+                <tr>
+                    <th class = "header-text">Generador de pulsos</th>
+                </tr>
+            </table>
+            <table class="configurations">
+                <tr>
+                    <th class = "header-text" colspan="5">Configuraciones</th>
+                </tr>
+                <tr>
+                    <td colspan="2"><label for="model">Modelo</label></td>
+                    <td colspan="2"><input type="text" name="model" value="VB8012-31C033D" required></td>
+                    <td> <button type="submit" class="connect">conectar</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><label for="amplitude">Amplitud [V]</label></td>
+                    <td colspan="3"><input type="number" name="amplitude" id="amplitude" min="0" value="3" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><label for="frecuency">Frecuencia [Hz]</label></td>
+                    <td colspan="3"><input type="number" name="frecuency" id="frecuency" min="0" value="2500" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><label for="nSamples">Numero de muestras</label></td>
+                    <td colspan="3"><input type="number" name="nSamples" id="nSamples" min="10" value="5000" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><label for="fs">Frecuencia de muestreo [muestra/s]</label></td>
+                    <td colspan="3"><input type="number" name="fs" id="fs" min="100" value="250000" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><label for="hgw">Ancho de banda promedio</label></td>
+                    <td colspan="3"><input type="number" name="hgw" id="hgw" value="0.001" step="0.001"></td>
+                </tr>
+                <tr class="gen-buttons" style="display: none;">
+                    <td colspan="3">
+                        <button type="submit" class="send" cols>Establecer</button>
+                    </td>
+                    <td colspan="2">
+                        <button type="submit" class="stop" >Detener</button>
+                    </td>
+                <tr>
+            </table>
+            <table class="plots-inputs">
+                <tr>
+                    <th class = "header-text" colspan="5">Señal de entrada</th>
+                </tr>
+                <tr>
+                   <td>
+                     <div id="timePlotIn"></div>
+                   </td>
+                </tr>
+                <tr>
+                    <td>
+                      <div id="frecuencyPlotIn"></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="header-main">
+            <tr>
+                <th class = "header-text">Adquisición de datos</th>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th class = "header-text">Señal de salida</th>
+                <th class = "header-text">Promedio</th>
+                <th class = "header-text">Descargar datos</th>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                              <div id="timePlotOut"></div>
+                            </td>
+                            <td>
+                                <button onclick="sendmsg(document.querySelector('#main-form').querySelectorAll('input'), 'reload')" id="reloadButton" style="display: none;">Recargar</button>
+                            </td>
+                         </tr>
+                         <tr>
+                             <td>
+                               <div id="frecuencyPlotOut"></div>
+                             </td>
+                         </tr>
+                    </table> 
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                              <div id="timePlotAverage"></div>
+                            </td>
+                         </tr>
+                         <tr>
+                             <td>
+                               <div id="frecuencyPlotAverage"></div>
+                             </td>
+                         </tr>
+                    </table> 
+                </td>
+                <td style="padding-top: 30px;">
+                    <form action="" onsubmit="event.preventDefault(); saveFile(this.querySelector('input').value, this.querySelector('select').value);">
+                        <label id="id_labelFile" >Tipo</label>
+                        <select>
+                            <option value="time">Datos en el tiempo</option>
+                            <option value="frec">Datos en la frecuencia</option>
+                            <option value="average">Datos promediados</option>
+                        </select>
+                        <label id="id_labelFile" >Nombre del archivo</label>
+                        <input id="id_nameFile" type="text" value="demo">
+                        <button id="id_saveFile"  type="submit">Guardar</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+<script src="../JS/GaussianPulse.js"></script>
+
+   
+    
