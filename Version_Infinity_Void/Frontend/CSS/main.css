@@ -1,103 +1,263 @@
-body, table{
-    padding: 0px;
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////         BODY         ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+body{
+    padding: 0%;
     border: 0px;
+    margin: 0%;
     width: 100%;
     text-align: center;
 }
-
-tr{
-    padding: 0px;
-    border: 0px;
-    text-align: center; 
-}
-
-
-table.configurations{
-    float: left;
-    width: 50%;
-    height: 500px;
-}
-table.plots-inputs{
-    float: right;
-    width: 50%;
-    height: 500px;
-}
-table.header-main{
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////    GENERIC CLASSES   ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+.header-main{
     width: 100%;
     text-align: center;
+    background-color: rgb(144, 159, 165);
+    font-size: large;
 }
-th.header-text {
-    font-size: 30px;
-    text-align: center; 
-    background-color: #a6a6a6; 
-    height:20px; 
-    width:50%;
+.PBM-configurations{
+    padding: 0%;
+    border: 0px;
+    margin: 0%;
 }
-th.header-img {
-    font-size: 50px;
-    text-align: center; 
-    background-color: #a6a6a6; 
-    height:20px; 
-    width:20px;
+
+.row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: xx-large;
 }
-img.logo {
-    display:block;
-    height:20px; 
-    width:50px;
+
+.column{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: xx-large;
 }
-td {
-    width: 220px;
-    font-size: 30px;
+
+
+.input-style {
+    width: 30vh;
+    height: 75%;
     text-align: center;
+    font-size: x-large;
 }
-input {
-    width: 80%;
+
+.label-margin{
+    margin-left: 5%;
+}
+
+.input-margin {
+    margin-right: 5%;
+}
+
+.gen-buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.button-div{
+    width: 25%;
+}
+
+.vertical-center{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////         DIVS         ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+div#main_div{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto;
+    grid-gap: 0.2%;
+    grid-template-areas:
+    "status status"
+    "generatorHeader generatorHeader"
+    "generatorConfigurations inputs"
+    "oscilloscopeHeader oscilloscopeHeader"
+    "oscilloscope oscilloscope"
+    "oscilloscope oscilloscope"
+}
+
+div#main_div > div#div_status{
+    grid-area: status;
+}
+
+div#main_div > div#generator_header{
+    grid-area: generatorHeader;
+}
+
+div#main_div > div#generator_configurations{
+    grid-area: generatorConfigurations;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div#div_connect{
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+div#connect_button{
+    width: 200%;
+}
+div#main_div > div#plots_inputs{
+    grid-area: inputs;  
+}
+
+div#main_div > div#downloads{
+    grid-area: download;
+    height: 50vh;
+}
+
+div#download_storage {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap: 3%;
+    grid-template-areas:
+    "select"
+    "name"
+    "button"
+}
+
+div#download_storage > div#download_select{
+    grid-area: select;
+}
+
+div#download_storage > div#download_name{
+    grid-area: name;
+}
+
+div#download_storage > div#download_button{
+    grid-area: button;
+    display: flex;
+    width: 100%;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+div#oscilloscope_configurations > div#downloads{
+    grid-area: download;
+    height: 50vh;
+}
+
+div#download_storage {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap: 3%;
+    grid-template-areas:
+    "select"
+    "name"
+    "button"
+}
+
+div#download_storage > div#download_select{
+    grid-area: select;
+}
+
+div#download_storage > div#download_name{
+    grid-area: name;
+}
+
+div#download_storage > div#download_button{
+    grid-area: button;
+    display: flex;
+    width: 100%;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+div#main_div > div#oscilloscope_header{
+    grid-area: oscilloscopeHeader;
+}
+
+div#main_div > div#oscilloscope_configurations{
+    grid-area: oscilloscope;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-template-rows: auto;
+    grid-gap: 0.2%;
+    grid-template-areas:
+    "output average"
+}
+
+div#oscilloscope_configurations > div#output{
+    grid-area: output;
+}
+
+div#oscilloscope_configurations > div#averages{
+    grid-area: average;
+}
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////        BUTTONS       ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+button{
+    width: 100%;
+    font-size: large;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(100, 102, 110);
+}
+
+button.connect{
+    width: 95%;
+    font-size: large;
+}
+
+button#id_saveFile {
+    width: 100%;
+    font-size: xx-large;
+}
+
+button#reloadButton{
+    width: 100%;
+    font-size: xx-large;
+    visibility: hidden;
+}
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////        INPUTS        ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+input#input_model {
+    width: 21.5vh;
+    height: 75%;
     text-align: center;
     font-size: large;
 }
-button.send {
-    display:block;
-    width: 110px;
-    font-size: 20px;
-    display: block;
-    margin: auto;
-}
-button.stop {
-    display:block;
-    width: 100px;
-    font-size: 20px;
-    display: block;
-    margin: auto;
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////         H1's         ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+h1#id_status{
+    font-size: medium;
 }
 
-button.connect {
-    display:block;
-    width: 100px;
-    font-size: 20px;
-    display: block;
-    margin: auto;
-}
-
-div#timePlot, div#frecuencyPlot {   
-    width:80%;
-    height:100%;
-}
-
-div.status {
-    width: 100%;
-    font-size: 10px;
-}
-
-#id_labelFile{
-    font-size: 50%; 
-    padding-right: 20px;
-}
-
-#id_nameFile{
-    font-size: 50%; 
-    background-color: bisque;
-}
-
-#id_saveFile{
-    font-size: 50%;
-}
