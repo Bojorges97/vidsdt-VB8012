@@ -133,6 +133,7 @@ async def echo(websocket):
                     fgen.release()
                     # mso.stop()
                     # mso.release()
+                    await websocket.send(json.dumps({'connectDev' : False}))
                 except:
                     print('No esta ejecutandose')
             elif msg['button'] == 'reload':

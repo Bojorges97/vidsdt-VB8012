@@ -12,7 +12,8 @@ let ip_address = window.location.hostname,
     storageData = getData("storage"),
     plotsData = getData("plots");
 
-const Status = document.getElementById("id_status"),
+var MenuLabels = document.querySelectorAll("[data-click]"),
+      Status = document.getElementById("id_status"),
       TimePlotInput = document.querySelector("#timePlotIn"),
       FrecPlotInput = document.querySelector("#frecuencyPlotIn");
 
@@ -21,6 +22,13 @@ const Status = document.getElementById("id_status"),
 //////////  STARTING ACTIONS    ////////////////
 //////////                      ////////////////
 /////////////////////////////////////////////**/
+
+MenuLabels.forEach(label => {
+  label.addEventListener("click", () => {
+    MenuLabels.forEach(L=>{L.classList.remove("active")});
+    label.classList.add("active");
+  });
+});
 
 Object.entries(storageData).forEach((key, value) => {document.querySelector("#"+key).value = value});
 
@@ -90,7 +98,8 @@ function connectWebSockets(){
 function sendmsg(button, inputs){
     storageData["button"] = button;
     inputs.forEach(element => {
-      element.name != "model"? storageData[element.name] = element.valueAsNumber : storageData[element.name] = element.value;
+      if(element.name && element.name !== 'radio')
+        element.name != "model"? storageData[element.name] = element.valueAsNumber : storageData[element.name] = element.value;
     });
     webSocket.send(JSON.stringify(storageData));
     delete storageData["button"];
@@ -113,6 +122,9 @@ function createPlot(plotFeatures){
       x: plotFeatures["dataX"],
       y: plotFeatures["dataY"]}], {
           margin: { t: 0 },
+          autosize: false,
+          width: 700,
+          height: 240,
           title:{
               text:plotFeatures["title"],
               x: 0.5,
@@ -229,13 +241,13 @@ function saveFile(){
     console.log(plotsData)
     switch(type){
       case "time":
-        file = new Blob(plotsData["fmso"] ? [JSON.stringify(plotsData)]: ["No data"], {type: "text/plain"});
+        file = new Blob(plotsData["fmso"] ? [mergeArrays(plotsData["fmso"]["t"], plotsData["fmso"]["timeY"]).join("\n")]: ["No data"], {type: "text/plain"});
         break;
       case "frec":
-        file = new Blob(plotsData["fmso"] ? [mergeArrays(plotsData["fmso"]["frecY"], plotsData["fmso"]["frecY"]).join("\n")]: ["No data"], {type: "text/plain"});
+        file = new Blob(plotsData["fmso"] ? [mergeArrays(plotsData["fmso"]["w"], plotsData["fmso"]["frecY"]).join("\n")]: ["No data"], {type: "text/plain"});
         break;
       case "average":
-        file = new Blob(plotsData["average"] ? [mergeArrays(plotsData["fmso"]["frecY"], plotsData["fmso"]["frecY"]).join("\n")]: ["No data"], {type: "text/plain"});
+        file = new Blob(plotsData["average"] ? [mergeArrays(plotsData["average"]["t"], plotsData["average"]["timeY"]).join("\n")]: ["No data"], {type: "text/plain"});
         break;
     }
 
