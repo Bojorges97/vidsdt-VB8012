@@ -7,3 +7,4 @@ Virtual Instrument for the study of Dynamical Systems in the time domain. First 
 * [websockets](https://pypi.org/project/websockets/)
 * [numpy](https://numpy.org/install/)
 * [python-math](https://pypi.org/project/python-math/)
+* [Plotly JS](https://plotly.com/javascript/)
