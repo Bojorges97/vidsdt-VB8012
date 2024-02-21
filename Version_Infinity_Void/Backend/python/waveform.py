@@ -19,7 +19,6 @@ class GaussianPulse:
         return arange(0, n, 1, dtype=float)
         
     def GaussianFunction(self, samples):
-        print(self.frec)
         omega = 2 * pi * self.frec
         campaignCut = 0.01
         sigma = self.d/sqrt(log(1/campaignCut))
