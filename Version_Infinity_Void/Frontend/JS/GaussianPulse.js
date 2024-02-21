@@ -7,7 +7,7 @@ console.log("Version Infinity Void");
 //////////                      ////////////////
 /////////////////////////////////////////////**/
 
-let ip_address = window.location.hostname,
+let ip_address = "127.0.0.1",
     webSocket,
     storageData = getData("storage"),
     plotsData = getData("plots");
@@ -47,7 +47,7 @@ drawPlots();
   *
 **/
 webSocket.onopen = function() {
-    Status.innerText = "Conectado a " + ip_address + ":5500";
+    Status.innerText = "Conectado a " + ip_address;
 };
 
 /**

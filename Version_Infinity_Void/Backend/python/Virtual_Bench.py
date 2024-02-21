@@ -2,7 +2,7 @@
 
 import asyncio
 from pyvirtualbench import PyVirtualBench, PyVirtualBenchException, FGenWaveformMode
-from waveform import GaussianPulse
+from Waveform import GaussianPulse
 from websockets.server import serve
 from numpy import array, arange, fft, max
 from math import pi
@@ -143,7 +143,7 @@ async def echo(websocket):
 if __name__ == '__main__':
     async def main():
         print("Service Up....")
-        async with serve(echo, "0.0.0.0", 1025):
+        async with serve(echo, "127.0.0.1", 1025):
             await asyncio.Future()  # run forever
 
     asyncio.run(main())
