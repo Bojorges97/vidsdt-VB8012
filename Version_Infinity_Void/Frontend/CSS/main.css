@@ -1,0 +1,322 @@
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////         BODY         ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+body{
+    width: 100%;
+    text-align: center;
+    padding: 0%;
+    border: 0px;
+    margin: 0%;
+}
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////        BUTTONS       ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+button{
+    width: 100%;
+    font-size: large;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(100, 102, 110);
+}
+
+button.connect{
+    width: 95%;
+    font-size: large;
+}
+
+button#id_saveFile {
+    width: 100%;
+    font-size: xx-large;
+}
+
+button#reloadButton{
+    width: 100%;
+    font-size: xx-large;
+    visibility: hidden;
+}
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////         DIVS         ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+div#main_div{
+    display: grid;
+    width: 100%;
+    height: auto;
+    grid-template-columns: auto;
+    grid-template-rows: 0.25fr 0.5fr 0.3fr 6fr;
+    grid-gap: 0.2%;
+    grid-template-areas:
+    "status"
+    "title"
+    "menu"
+    "sections"
+}
+
+div#main_div > div#div_status{
+    grid-area: status;
+    background-color: aliceblue;
+    h1#id_status{
+        font-size: medium;
+    }
+}
+
+div#main_div > div#div_title{
+    grid-area: title;
+    background-color: black;
+    color: white;
+
+    h1#id_title{
+        font-size: 5vh;
+    }
+}
+
+div#main_div > div#div_menu{
+    grid-area: menu;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: x-large;
+    background-color: rgb(189, 189, 195);
+    
+    label{
+        width: 100%;
+        height: fit-content;
+        padding: 0.5%;
+        cursor: pointer;
+        margin: 0.1%;
+        transition: all 400ms ease;
+    }
+
+    label:hover{
+        background-color: rgb(127, 127, 129);
+        color: black;
+    }
+}
+
+div#main_div > div#div_sections{
+    grid-area: sections;
+    width: 100%;
+    height: 80vh;
+    background-color: white;
+}
+
+div#generator_div > div#generator_configurations{
+    grid-area: configurations;
+    width: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5%;
+}
+
+div#div_connect{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
+div#generator_div > div#plots_inputs{
+    grid-area: inputs;  
+    display: grid;
+    width: 100%;
+    height: 10%;
+    grid-template-columns: auto;
+    grid-template-rows: 0.1fr 0.5fr 0.5fr;
+    grid-gap: 0.2%;
+    grid-template-areas:
+    "header"
+    "timePlot"
+    "frecPlot"
+}
+
+div#plots_inputs > div.header-main{
+    grid-area: header;
+    height: 100%;
+}
+
+div#plots_inputs > div#timePlotIn{
+    grid-area: timePlot;
+}
+
+div#plots_inputs > div#frecuencyPlotIn{
+    grid-area: frecPlot;
+}
+
+div#oscilloscope_div > div#output{
+    grid-area: output;
+}
+
+div#oscilloscope_div > div#averages{
+    grid-area: average;
+}
+
+div#download_storage {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap: 3%;
+    grid-template-areas:
+    "select"
+    "name"
+    "button"
+}
+
+div#download_storage > div#download_select{
+    grid-area: select;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 5vh;
+}
+
+div#download_storage > div#download_name{
+    grid-area: name;
+    font-size: 5vh;
+}
+
+div#download_storage > div#download_button{
+    grid-area: button;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////    GENERIC CLASSES   ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+.PBM-configurations{
+    padding: 0%;
+    border: 0px;
+    margin: 0%;
+}
+
+.section{
+    display: none;
+}
+
+.header-main{
+    width: 100%;
+    text-align: center;
+    font-size: medium;
+    background-color: rgb(175, 201, 213);
+}
+
+.row{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: xx-large;
+}
+
+.column{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    font-size: xx-large;
+}
+
+
+.input-style {
+    width: 30vh;
+    height: 75%;
+    text-align: center;
+    font-size: medium;
+}
+
+.gen-buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    visibility: visible;
+}
+
+.button-div{
+    width: 25%;
+}
+
+.vertical-center{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+}
+
+[data-click]{
+    background-color: black;
+    color: white;
+}
+
+.active{
+    background-color: rgb(189, 189, 195);
+    color: black;
+}
+
+div.plotly{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.main-svg{
+    width: 100%;
+}
+
+.svg-container{
+    width: 100%;
+    height: 100%;
+}
+/*/////////////////////////////////////////////
+//////////                      ////////////////
+//////////        INPUTS        ////////////////
+//////////                      ////////////////
+/////////////////////////////////////////////*/
+
+input[name=radio] {
+    display: none;
+}
+
+input#generator:checked ~ #generator_div{
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: auto;
+    grid-gap: 0.2%;
+    grid-template-areas:
+    "configurations inputs"
+}
+
+input#oscilloscope:checked ~ #oscilloscope_div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    grid-template-rows: auto;
+    grid-gap: 0.2%;
+    grid-template-areas:
+    "output average"
+}
+
+input#downloads:checked ~ #downloads_div{
+    display: block;
+}
+
+input#input_model {
+    width: 21.5vh;
+    height: 75%;
+    text-align: center;
+    font-size: medium;
+}

@@ -1,0 +1,121 @@
+<head>
+    <title>Virtual Bench Pulse Generator</title>
+    <link rel="stylesheet" href="../CSS/main.css">
+    <script src="../JS/GaussianPulse.js" defer></script>
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <form action="" onsubmit="event.preventDefault(); sendmsg(event.submitter.className, this.querySelectorAll('input'));" id="main-form">
+        <div id="main_div">
+    <!------------------------------------------------------------------------HEADERS---------------------------------------------------------------------------------------------------->
+            <div id="div_status">
+                <h1 id="id_status" class="PBM-configurations">Socket desconectado</h1>
+            </div>
+            <div id="div_title">
+                <h1 id="id_title" class="PBM-configurations">Virtual Bench</h1>
+            </div>
+    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------MENU------------------------------------------------------------------------------------------------------>
+            <div id="div_menu">
+                <label for="generator" data-click>Generador de pulsos</label>
+                <label for="oscilloscope" data-click>Adquisición de datos</label>
+                <label for="downloads" data-click>Descargas</label>
+            </div>
+    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    <!-----------------------------------------------------------------------GENERATOR-------------------------------------------------------------------------------------------------->
+            <div id="div_sections" class="PBM-configurations">
+                <input type="radio" name="radio" id="generator">
+                <div id="generator_div" class="section">
+                    <div id="generator_configurations" >
+                        <div class="header-main"> <h1 class="PBM-configurations">Configuraciones</h1></div>
+                        <div class="row">
+                            <div><label for="model">Modelo:</label></div>
+                            <div id="div_connect">
+                                <div><input type="text" name="model" value="VB8012-31C033D" id="input_model" required></div>
+                                <div id="connect_button"><button type="submit" class="connect">conectar</button></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div><label for="amplitude">Amplitud [V]:</label></div>
+                            <div><input class="input-style" type="number" name="amplitude" id="amplitude" min="0" value="3" required></div>
+                        </div>
+                        <div class="row">
+                            <div><label for="frecuency">Frecuencia [Hz]:</label></div>
+                            <div><input class="input-style" type="number" name="frecuency" id="frecuency" min="0" value="2500" required></div>
+                        </div>
+                        <div class="row">
+                        <div><label for="nSamples">Numero de muestras:</label></div>
+                        <div><input class="input-style" type="number" name="nSamples" id="nSamples" min="10" value="5000" required></div>
+                        </div>
+                        <div class="row">
+                            <div><label for="fs">Frecuencia de muestreo [sample/s]:</label></div>
+                            <div><input class="input-style" type="number" name="fs" id="fs" min="100" value="250000" required></div>
+                        </div>
+                        <div class="row">
+                            <div><label for="hgw">Ancho de banda promedio:</label></div>
+                            <div><input class="input-style" type="number" name="hgw" id="hgw" value="0.001" step="0.001"></div>
+                        </div>
+                        <div class="gen-buttons">
+                            <div class="button-div"><button type="submit" class="send" >Establecer</button></div>
+                            <div class="button-div"><button type="submit" class="stop" >Detener</button></div>
+                        </div>
+                    </div>
+                    <div id="plots_inputs">
+                        <div class="header-main">
+                            <h1 class="PBM-configurations">Señal de entrada</h1>
+                        </div>
+                        <div id="timePlotIn"></div>
+                        <div id="frecuencyPlotIn"></div>
+                    </div>
+                </div>
+    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    <!-----------------------------------------------------------------------OSCILLOSCOPE----------------------------------------------------------------------------------------------->
+                <input type="radio" name="radio" id="oscilloscope">
+                <div id="oscilloscope_div" class="section">
+                    <div id="output" class="column">
+                        <div class="header-main"> <h1 class="PBM-configurations">Señal de salida</h1></div>
+                        <div id="timePlotOut"></div>
+                        <div id="frecuencyPlotOut"></div>
+                    </div>
+                    <div id="averages" class="column">
+                        <div class="header-main"> <h1 class="PBM-configurations">Promedio</h1></div>
+                        <div id="timePlotAverage"></div>
+                        <div>
+                            <button type="submit" class="reload" id="reloadButton">Recargar</button>
+                        </div>
+                    </div>
+                </div>
+    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    <!-----------------------------------------------------------------------DOWNLOADS-------------------------------------------------------------------------------------------------->
+                <input type="radio" name="radio" id="downloads">
+                <div id="downloads_div" class="section">
+                    <div class="header-main"> <h1 class="PBM-configurations">Descargas</h1></div>
+                    <div class="vertical-center">
+                        <div id="download_storage">
+                            <div id="download_select">
+                                <label id="id_labelFile">Tipo de datos:</label>
+                                <select class="input-style">
+                                    <option value="time">Datos en el tiempo</option>
+                                    <option value="frec">Datos en la frecuencia</option>
+                                    <option value="average">Datos promediados</option>
+                                </select>
+                            </div>
+                            <div id="download_name">
+                                <label id="id_labelFile" >Nombre del archivo:</label>
+                                <input id="id_nameFile" type="text" value="demo" class="input-style">
+                            </div>
+                            <div id="download_button"><div>
+                                <button id="id_saveFile"  type="button" onclick="saveFile();">Guardar</button>
+                            </div></div>
+                        </div>
+                    </div>
+                </div>
+    <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+            </div>
+        </div>
+    </form>
+</body>
+
+
+
+   

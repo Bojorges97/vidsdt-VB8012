@@ -2,7 +2,7 @@
 
 import asyncio
 from pyvirtualbench import PyVirtualBench, PyVirtualBenchException, FGenWaveformMode
-from waveform import GaussianPulse
+from Waveform import GaussianPulse
 from websockets.server import serve
 from numpy import array, arange, fft, max
 from math import pi
@@ -43,7 +43,6 @@ def msoData(sampleRate):
     mso.configure_analog_channel(model+'/mso/1', True, channel_1[1], channel_1[2], channel_1[3], channel_1[4])
     # mso.configure_analog_channel(model+'/mso/2', True, channel_2[1], channel_2[2], channel_2[3], channel_2[4])
 
-    # print( mso.query_analog_channel('VB8012-3178C78/mso/2'))
     sample_rate, acquisition_time, pretrigger_time, sampling_mode = mso.query_timing()
 
     mso.configure_timing(sampleRate, 0.024894966761633427, 0.012447483380816714, sampling_mode)
@@ -92,9 +91,6 @@ def getAverage():
     data["average"] = { "t" : step, "timeY" : average}
         # average = 
 
-
-
-
 async def echo(websocket):
     async for message in websocket:
         msg = json.loads(message)
@@ -121,18 +117,13 @@ async def echo(websocket):
                getAverage()
                test = data ["fGen"]
                await websocket.send(json.dumps(data))
-            #    await websocket.send(json.dumps({'data' : msoData(msg['sampleRate'])}))
-            #    while True:
-            #       await websocket.send(json.dumps({'data' : msoData(msg['sampleRate'])}))
-            #       await asyncio.sleep(1)
             elif msg['button'] == 'stop': 
                 virtualbench = PyVirtualBench(model)
                 fgen = virtualbench.acquire_function_generator()
                 try:
                     fgen.stop()
                     fgen.release()
-                    mso.stop()
-                    mso.release()
+                    await websocket.send(json.dumps({'connectDev' : False}))
                 except:
                     print('No esta ejecutandose')
             elif msg['button'] == 'reload':
@@ -152,7 +143,7 @@ async def echo(websocket):
 if __name__ == '__main__':
     async def main():
         print("Service Up....")
-        async with serve(echo, "0.0.0.0", 1025):
+        async with serve(echo, "127.0.0.1", 1025):
             await asyncio.Future()  # run forever
 
     asyncio.run(main())
